@@ -3,3 +3,5 @@ wget https://swcarpentry.github.io/shell-novice/data/shell-lesson-data.z
 
 ///To unzip /////
 unzip shell-lesson-data.zip -d ./
+
+https://swcarpentry.github.io/python-novice-inflammation/
