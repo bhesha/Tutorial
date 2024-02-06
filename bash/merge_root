@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Define the directory path
+directory="/lustre19/expphy/volatile/halld/home/bhesha/DSelector_Job/Flat_3/Deuterium_miss_unknown_D2/"
+
+# Merge the rest of the root files starting from 090247
+for ((i=247; i<=563; i++)); do
+    file="${directory}Flat_data_D2_unknown_090${i}.root"
+    echo "Merging file: $file"
+    hadd "../${directory}total_from_090246.root" "$file"
+done
+ #  chmod +x merge_script.sh
