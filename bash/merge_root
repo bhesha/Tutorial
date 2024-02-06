@@ -20,3 +20,21 @@ root -l -b -q pidfom_src.C
 
 # Run B.C
 root  Fit_using_arrays_1pol.C
+
+
+RunNo=$1
+ OutputDir=/work/halld2/home/bhesha/Tagger/calib_results/calib_offsets_results/${RunNo}
+  InputFile=/work/halld2/home/bhesha/Tagger/calib_root/calib_offsets/Run0$1.root
+  
+
+ cp -p ${InputFile} hd_root.root
+ mkdir -p offsets
+ ccdb dump  /PHOTON_BEAM/hodoscope/base_time_offset:${RunNo} > offsets/base_time_offset_ccdb.txt
+ ccdb dump /PHOTON_BEAM/hodoscope/tdc_time_offsets:${RunNo} > offsets/tdc_time_offsets_ccdb.txt
+ ccdb dump /PHOTON_BEAM/hodoscope/fadc_time_offsets:${RunNo} > offsets/fadc_time_offsets_ccdb.txt
+ root -l -b -q '/work/halld2/home/bhesha/Tagger/calib_code/fits.C("hd_root.root",true)'
+ root -l -b -q '/work/halld2/home/bhesha/Tagger/calib_code/offsets.C("fits-csv")'
+ rm -f hd_root.root
+ mkdir -p $OutputDir
+ mv offsets $OutputDir
+hd_root -PPLUGINS=TAGH_timewalk -o /work/halld2/home/bhesha/Tagger/calib_root/calib_timewalk_verify/Run0$1.root -PNTHREADS=8 /cache/halld/RunPeriod-2021-11/rawdata/Run0$1/hd_rawdata_0$1_001.evio  /cache/halld/RunPeriod-2021-11/rawdata/Run0$1/hd_rawdata_0$1_002.evio   
