@@ -10,3 +10,13 @@ for ((i=247; i<=563; i++)); do
     hadd "../${directory}total_from_090246.root" "$file"
 done
  #  chmod +x merge_script.sh
+
+
+
+#!/bin/bash
+
+# Run A.C
+root -l -b -q pidfom_src.C
+
+# Run B.C
+root  Fit_using_arrays_1pol.C
